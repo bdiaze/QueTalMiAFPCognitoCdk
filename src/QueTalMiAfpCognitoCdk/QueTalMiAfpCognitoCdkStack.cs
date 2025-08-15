@@ -50,6 +50,7 @@ namespace QueTalMiAfpCognitoCdk
                 Scopes = ["email", "profile"],
                 AttributeMapping = new AttributeMapping() {
                     Email = ProviderAttribute.GOOGLE_EMAIL,
+                    EmailVerified = ProviderAttribute.GOOGLE_EMAIL_VERIFIED,
                     GivenName = ProviderAttribute.GOOGLE_GIVEN_NAME,
                     FamilyName = ProviderAttribute.GOOGLE_FAMILY_NAME,
                 }
