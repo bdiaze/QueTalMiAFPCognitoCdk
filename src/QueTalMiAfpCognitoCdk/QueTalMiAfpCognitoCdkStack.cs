@@ -1,5 +1,6 @@
 using Amazon.CDK;
 using Amazon.CDK.AWS.Cognito;
+using Amazon.CDK.AWS.ECS;
 using Amazon.CDK.AWS.SSM;
 using Constructs;
 using System;
@@ -39,6 +40,7 @@ namespace QueTalMiAfpCognitoCdk
                 CognitoDomain = new CognitoDomainOptions {
                     DomainPrefix = cognitoDomain
                 },
+                ManagedLoginVersion = ManagedLoginVersion.NEWER_MANAGED_LOGIN
             });
 
             UserPoolIdentityProviderGoogle googleProvider = new(this, $"{appName}IdentityProviderGoogle", new UserPoolIdentityProviderGoogleProps {
@@ -84,6 +86,8 @@ namespace QueTalMiAfpCognitoCdk
 
             UserPoolClient userPoolClient = new(this, $"{appName}UserPoolClient", new UserPoolClientProps { 
                 UserPool = userPool,
+                GenerateSecret = false,
+                PreventUserExistenceErrors = true,
                 SupportedIdentityProviders = [
                     UserPoolClientIdentityProvider.GOOGLE,
                     // UserPoolClientIdentityProvider.FACEBOOK,
@@ -97,6 +101,13 @@ namespace QueTalMiAfpCognitoCdk
                 }
             });
             userPoolClient.Node.AddDependency(googleProvider);
+
+            _ = new CfnManagedLoginBranding(this, $"{appName}ManagedLoginBranding", new CfnManagedLoginBrandingProps {
+                UserPoolId = userPool.UserPoolId,
+                ClientId = userPoolClient.UserPoolClientId,
+                ReturnMergedResources = true,
+                UseCognitoProvidedValues = true
+            });
 
             _ = new StringParameter(this, $"{appName}StringParameterCognitoUserPoolId", new StringParameterProps {
                 ParameterName = $"/{appName}/Cognito/UserPoolId",
