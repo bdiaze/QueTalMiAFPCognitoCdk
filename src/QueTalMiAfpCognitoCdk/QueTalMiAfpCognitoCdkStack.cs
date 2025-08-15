@@ -36,7 +36,7 @@ namespace QueTalMiAfpCognitoCdk
                 SignInCaseSensitive = false,
             });
 
-            userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
+            UserPoolDomain domain = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
                 CognitoDomain = new CognitoDomainOptions {
                     DomainPrefix = cognitoDomain
                 },
@@ -121,6 +121,13 @@ namespace QueTalMiAfpCognitoCdk
                 ParameterName = $"/{appName}/Cognito/Region",
                 Description = $"Cognito Region de la aplicacion {appName}",
                 StringValue = region,
+                Tier = ParameterTier.STANDARD,
+            });
+
+            _ = new StringParameter(this, $"{appName}StringParameterCognitoOAuth2TokenUrl", new StringParameterProps {
+                ParameterName = $"/{appName}/Cognito/OAuth2TokenUrl",
+                Description = $"URL de Cognito para negociar token de OAuth2 de la aplicacion {appName}",
+                StringValue = domain.BaseUrl() + "/oauth2/token",
                 Tier = ParameterTier.STANDARD,
             });
         }
