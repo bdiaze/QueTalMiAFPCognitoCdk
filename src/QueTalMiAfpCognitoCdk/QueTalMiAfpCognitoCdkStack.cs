@@ -131,9 +131,9 @@ namespace QueTalMiAfpCognitoCdk
                 Tier = ParameterTier.STANDARD,
             });
 
-            _ = new StringParameter(this, $"{appName}StringParameterCognitoClientId", new StringParameterProps {
-                ParameterName = $"/{appName}/Cognito/ClientId",
-                Description = $"Client ID de la aplicacion {appName}",
+            _ = new StringParameter(this, $"{appName}StringParameterCognitoUserPoolClientId", new StringParameterProps {
+                ParameterName = $"/{appName}/Cognito/UserPoolClientId",
+                Description = $"User Pool Client ID de la aplicacion {appName}",
                 StringValue = userPoolClient.UserPoolClientId,
                 Tier = ParameterTier.STANDARD,
             });
