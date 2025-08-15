@@ -19,6 +19,10 @@ jobs:
             APP_NAME: ${{ vars.APP_NAME }}
             ACCOUNT_AWS: ${{ vars.ACCOUNT_AWS }}
             REGION_AWS: ${{ vars.REGION_AWS }}
+            GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+            GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+            CALLBACK_URLS: ${{ vars.CALLBACK_URLS }}
+            LOGOUT_URLS: ${{ vars.LOGOUT_URLS }}
         steps:
             - name: Checkout Repositorio
               uses: actions/checkout@v4
