@@ -96,6 +96,7 @@ namespace QueTalMiAfpCognitoCdk
                     Scopes = [ OAuthScope.OPENID, OAuthScope.EMAIL, OAuthScope.PROFILE ]
                 }
             });
+            userPoolClient.Node.AddDependency(googleProvider);
 
             _ = new StringParameter(this, $"{appName}StringParameterCognitoUserPoolId", new StringParameterProps {
                 ParameterName = $"/{appName}/Cognito/UserPoolId",
