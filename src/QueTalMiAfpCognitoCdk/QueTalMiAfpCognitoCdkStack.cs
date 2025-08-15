@@ -13,6 +13,8 @@ namespace QueTalMiAfpCognitoCdk
             string appName = System.Environment.GetEnvironmentVariable("APP_NAME") ?? throw new ArgumentNullException("APP_NAME");
             string region = System.Environment.GetEnvironmentVariable("REGION_AWS") ?? throw new ArgumentNullException("REGION_AWS");
 
+            string cognitoDomain = System.Environment.GetEnvironmentVariable("COGNITO_DOMAIN") ?? throw new ArgumentNullException("COGNITO_DOMAIN");
+
             // Se obtienen los clients y secrets para los identity providers...
             // string microsoftClientId = System.Environment.GetEnvironmentVariable("MICROSOFT_CLIENT_ID") ?? throw new ArgumentNullException("MICROSOFT_CLIENT_ID");
             // string microsoftClientSecret = System.Environment.GetEnvironmentVariable("MICROSOFT_CLIENT_SECRET") ?? throw new ArgumentNullException("MICROSOFT_CLIENT_SECRET");
@@ -31,6 +33,12 @@ namespace QueTalMiAfpCognitoCdk
                 UserPoolName = $"{appName}UserPool",
                 SelfSignUpEnabled = true,
                 SignInCaseSensitive = false,
+            });
+
+            userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
+                CognitoDomain = new CognitoDomainOptions {
+                    DomainPrefix = cognitoDomain
+                },
             });
 
             UserPoolIdentityProviderGoogle googleProvider = new(this, $"{appName}IdentityProviderGoogle", new UserPoolIdentityProviderGoogleProps {
