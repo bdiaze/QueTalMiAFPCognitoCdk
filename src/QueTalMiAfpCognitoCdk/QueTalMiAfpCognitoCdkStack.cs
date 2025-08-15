@@ -130,6 +130,13 @@ namespace QueTalMiAfpCognitoCdk
                 StringValue = domain.BaseUrl() + "/oauth2/token",
                 Tier = ParameterTier.STANDARD,
             });
+
+            _ = new StringParameter(this, $"{appName}StringParameterCognitoClientId", new StringParameterProps {
+                ParameterName = $"/{appName}/Cognito/ClientId",
+                Description = $"Client ID de la aplicacion {appName}",
+                StringValue = userPoolClient.UserPoolClientId,
+                Tier = ParameterTier.STANDARD,
+            });
         }
     }
 }
