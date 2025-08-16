@@ -61,7 +61,7 @@ namespace QueTalMiAfpCognitoCdk
                 StandardAttributes = new StandardAttributes {
                     Email = new StandardAttribute {
                         Required = true,
-                        Mutable = false,
+                        Mutable = true,
                     },
                     GivenName = new StandardAttribute {
                         Required = true,
@@ -78,7 +78,8 @@ namespace QueTalMiAfpCognitoCdk
                     RequireUppercase = true,
                     RequireDigits = true,
                     RequireSymbols = false,
-                }
+                },
+                RemovalPolicy = RemovalPolicy.DESTROY,
             });
 
             UserPoolDomain domain = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
