@@ -4,6 +4,7 @@ using Amazon.CDK.AWS.ECS;
 using Amazon.CDK.AWS.SSM;
 using Constructs;
 using System;
+using System.Linq;
 
 namespace QueTalMiAfpCognitoCdk
 {
@@ -128,6 +129,27 @@ namespace QueTalMiAfpCognitoCdk
                 ParameterName = $"/{appName}/Cognito/Region",
                 Description = $"Cognito Region de la aplicacion {appName}",
                 StringValue = region,
+                Tier = ParameterTier.STANDARD,
+            });
+
+            _ = new StringParameter(this, $"{appName}StringParameterCognitoCallbacks", new StringParameterProps {
+                ParameterName = $"/{appName}/Cognito/Callbacks",
+                Description = $"Cognito callbacks de la aplicacion {appName}",
+                StringValue = String.Join(",", callbackUrls),
+                Tier = ParameterTier.STANDARD,
+            });
+
+            _ = new StringParameter(this, $"{appName}StringParameterCognitoLogouts", new StringParameterProps {
+                ParameterName = $"/{appName}/Cognito/Logouts",
+                Description = $"Cognito logouts de la aplicacion {appName}",
+                StringValue = String.Join(",", logoutUrls),
+                Tier = ParameterTier.STANDARD,
+            });
+
+            _ = new StringParameter(this, $"{appName}StringParameterCognitoBaseUrl", new StringParameterProps {
+                ParameterName = $"/{appName}/Cognito/BaseUrl",
+                Description = $"Cognito base URL de la aplicacion {appName}",
+                StringValue = domain.BaseUrl(),
                 Tier = ParameterTier.STANDARD,
             });
         }
