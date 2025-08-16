@@ -159,11 +159,21 @@ namespace QueTalMiAfpCognitoCdk
                 ClientId = userPoolClient.UserPoolClientId,
                 ReturnMergedResources = true,
                 Settings = new Dictionary<string, object> {
-                    { "backgroundColor", "#fff" },
-                    { "primaryColor", "#1b6ec2" },
-                    { "textColor", "#6c757d"},
-                    { "font", "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"},
-                },
+                    { "style", new Dictionary<string, object> {
+                        { "colorMode", "light" },
+                        { "font", new Dictionary<string, object> {
+                            { "family", "\"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji\"" }
+                        }},
+                        { "background", new Dictionary<string, object> {
+                            { "color", "#fff" }
+                        }}
+                    }},
+                    { "images", new Dictionary<string, object>{
+                        { "favicon", new Dictionary<string, object> {
+                            { "url", "https://www.quetalmiafp.cl/flavicon.svg" }
+                        }}
+                    }}
+                }
             });
 
             _ = new StringParameter(this, $"{appName}StringParameterCognitoUserPoolId", new StringParameterProps {
