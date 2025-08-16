@@ -4,6 +4,7 @@ using Amazon.CDK.AWS.ECS;
 using Amazon.CDK.AWS.SSM;
 using Constructs;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace QueTalMiAfpCognitoCdk
@@ -157,7 +158,12 @@ namespace QueTalMiAfpCognitoCdk
                 UserPoolId = userPool.UserPoolId,
                 ClientId = userPoolClient.UserPoolClientId,
                 ReturnMergedResources = true,
-                UseCognitoProvidedValues = true
+                Settings = new Dictionary<string, object> {
+                    { "backgroundColor", "#fff" },
+                    { "primaryColor", "#1b6ec2" },
+                    { "textColor", "#6c757d"},
+                    { "font", "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"},
+                },
             });
 
             _ = new StringParameter(this, $"{appName}StringParameterCognitoUserPoolId", new StringParameterProps {
