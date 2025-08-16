@@ -173,16 +173,16 @@ namespace QueTalMiAfpCognitoCdk
                     { "componentClasses", new Dictionary<string, object>{
                         { "focusState", new Dictionary<string, object>{
                             { "lightMode", new Dictionary<string, object> {
-                                { "borderColor", "0069d9" }
+                                { "borderColor", "0069d9ff" }
                             }}
                         }},
                         { "link", new Dictionary<string, object>{
                             { "lightMode", new Dictionary<string, object> {
                                 { "defaults", new Dictionary<string, object>{
-                                    { "textColor", "1b6ec2" }
+                                    { "textColor", "1b6ec2ff" }
                                 }},
                                 { "hover", new Dictionary<string, object>{
-                                    { "textColor", "0069d9" }
+                                    { "textColor", "0069d9ff" }
                                 }},
                             }}
                         }}
@@ -195,20 +195,20 @@ namespace QueTalMiAfpCognitoCdk
                         }},
                         { "pageText", new Dictionary<string, object> {
                             { "lightMode", new Dictionary<string, object> {
-                                { "headingColor", "212529" },
-                                { "bodyColor", "6c757d" },
-                                { "descriptionColor", "6c757d" },
+                                { "headingColor", "212529ff" },
+                                { "bodyColor", "6c757dff" },
+                                { "descriptionColor", "6c757dff" },
                             }},
                         }},
                         { "primaryButton", new Dictionary<string, object> {
                             { "lightMode", new Dictionary<string, object> {
                                 { "defaults", new Dictionary<string, object>{
-                                    { "backgroundColor", "1b6ec2" },
-                                    { "textColor", "fff" }
+                                    { "backgroundColor", "1b6ec2ff" },
+                                    { "textColor", "ffffffff" }
                                 }},
                                 { "hover", new Dictionary<string, object>{
-                                    { "backgroundColor", "0069d9" },
-                                    { "textColor", "fff" }
+                                    { "backgroundColor", "0069d9ff" },
+                                    { "textColor", "ffffffff" }
                                 }},
                             }},
                         }}
