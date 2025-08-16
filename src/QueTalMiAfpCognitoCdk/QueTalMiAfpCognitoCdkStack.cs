@@ -217,8 +217,8 @@ namespace QueTalMiAfpCognitoCdk
                         { "pageText", new Dictionary<string, object> {
                             { "lightMode", new Dictionary<string, object> {
                                 { "headingColor", "212529ff" },
-                                { "bodyColor", "6c757dff" },
-                                { "descriptionColor", "6c757dff" },
+                                { "bodyColor", "212529ff" },
+                                { "descriptionColor", "212529ff" },
                             }},
                         }},
                         { "primaryButton", new Dictionary<string, object> {
