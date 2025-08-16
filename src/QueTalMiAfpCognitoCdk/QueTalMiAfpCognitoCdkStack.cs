@@ -179,14 +179,14 @@ namespace QueTalMiAfpCognitoCdk
                         { "input", new Dictionary<string, object>{
                             { "lightMode", new Dictionary<string, object> {
                                 { "defaults", new Dictionary<string, object>{
-                                    { "borderColor", "0069d9ff" }
+                                    // { "borderColor", "0069d9ff" }
                                 }},
                                 { "placeholderColor", "6c757dff" },
                             }}
                         }},
                         { "inputLabel", new Dictionary<string, object>{
                             { "lightMode", new Dictionary<string, object> {
-                                { "textColor", "6c757dff" }
+                                // { "textColor", "6c757dff" }
                             }}
                         }},
                         { "link", new Dictionary<string, object>{
