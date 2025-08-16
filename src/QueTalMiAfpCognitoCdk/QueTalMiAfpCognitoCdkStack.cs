@@ -117,24 +117,17 @@ namespace QueTalMiAfpCognitoCdk
                 Tier = ParameterTier.STANDARD,
             });
 
-            _ = new StringParameter(this, $"{appName}StringParameterCognitoRegion", new StringParameterProps {
-                ParameterName = $"/{appName}/Cognito/Region",
-                Description = $"Cognito Region de la aplicacion {appName}",
-                StringValue = region,
-                Tier = ParameterTier.STANDARD,
-            });
-
-            _ = new StringParameter(this, $"{appName}StringParameterCognitoOAuth2TokenUrl", new StringParameterProps {
-                ParameterName = $"/{appName}/Cognito/OAuth2TokenUrl",
-                Description = $"URL de Cognito para negociar token de OAuth2 de la aplicacion {appName}",
-                StringValue = domain.BaseUrl() + "/oauth2/token",
-                Tier = ParameterTier.STANDARD,
-            });
-
             _ = new StringParameter(this, $"{appName}StringParameterCognitoUserPoolClientId", new StringParameterProps {
                 ParameterName = $"/{appName}/Cognito/UserPoolClientId",
                 Description = $"User Pool Client ID de la aplicacion {appName}",
                 StringValue = userPoolClient.UserPoolClientId,
+                Tier = ParameterTier.STANDARD,
+            });
+
+            _ = new StringParameter(this, $"{appName}StringParameterCognitoRegion", new StringParameterProps {
+                ParameterName = $"/{appName}/Cognito/Region",
+                Description = $"Cognito Region de la aplicacion {appName}",
+                StringValue = region,
                 Tier = ParameterTier.STANDARD,
             });
         }
