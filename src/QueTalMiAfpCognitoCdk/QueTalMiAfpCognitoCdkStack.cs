@@ -15,6 +15,9 @@ namespace QueTalMiAfpCognitoCdk
             string appName = System.Environment.GetEnvironmentVariable("APP_NAME") ?? throw new ArgumentNullException("APP_NAME");
             string region = System.Environment.GetEnvironmentVariable("REGION_AWS") ?? throw new ArgumentNullException("REGION_AWS");
 
+            string emailSubject = System.Environment.GetEnvironmentVariable("VERIFICATION_SUBJECT") ?? throw new ArgumentNullException("VERIFICATION_SUBJECT");
+            string emailBody = System.Environment.GetEnvironmentVariable("VERIFICATION_BODY") ?? throw new ArgumentNullException("VERIFICATION_BODY");
+
             string cognitoDomain = System.Environment.GetEnvironmentVariable("COGNITO_DOMAIN") ?? throw new ArgumentNullException("COGNITO_DOMAIN");
 
             // Se obtienen los clients y secrets para los identity providers...
@@ -35,6 +38,47 @@ namespace QueTalMiAfpCognitoCdk
                 UserPoolName = $"{appName}UserPool",
                 SelfSignUpEnabled = true,
                 SignInCaseSensitive = false,
+                UserVerification = new UserVerificationConfig {
+                    EmailSubject = emailSubject,
+                    EmailBody = emailBody,
+                    EmailStyle = VerificationEmailStyle.CODE,
+                },
+                SignInAliases = new SignInAliases {
+                    Username = false,
+                    Email = true,
+                },
+                AutoVerify = new AutoVerifiedAttrs {
+                    Email = true,
+                },
+                KeepOriginal = new KeepOriginalAttrs {
+                    Email = true,
+                },
+                Mfa = Mfa.OPTIONAL,
+                MfaSecondFactor = new MfaSecondFactor {
+                    Otp = true,
+                },
+                AccountRecovery = AccountRecovery.EMAIL_ONLY,
+                StandardAttributes = new StandardAttributes {
+                    Email = new StandardAttribute {
+                        Required = true,
+                        Mutable = true,
+                    },
+                    GivenName = new StandardAttribute {
+                        Required = true,
+                        Mutable = true,
+                    },
+                    FamilyName = new StandardAttribute {
+                        Required = true,
+                        Mutable = true,
+                    },
+                },
+                PasswordPolicy = new PasswordPolicy {
+                    MinLength = 8,
+                    RequireLowercase = true,
+                    RequireUppercase = true,
+                    RequireDigits = true,
+                    RequireSymbols = false,
+                }
             });
 
             UserPoolDomain domain = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
@@ -87,10 +131,15 @@ namespace QueTalMiAfpCognitoCdk
             */
 
             UserPoolClient userPoolClient = new(this, $"{appName}UserPoolClient", new UserPoolClientProps { 
+                UserPoolClientName = $"{appName}UserPoolClient",
                 UserPool = userPool,
                 GenerateSecret = false,
                 PreventUserExistenceErrors = true,
+                AuthFlows = new AuthFlow {
+                    UserSrp = true,
+                },
                 SupportedIdentityProviders = [
+                    UserPoolClientIdentityProvider.COGNITO,
                     UserPoolClientIdentityProvider.GOOGLE,
                     // UserPoolClientIdentityProvider.FACEBOOK,
                     // UserPoolClientIdentityProvider.OIDC(microsoftProvider.UserPoolClientProviderName)

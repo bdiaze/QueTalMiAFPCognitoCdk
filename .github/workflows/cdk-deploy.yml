@@ -19,6 +19,8 @@ jobs:
             APP_NAME: ${{ vars.APP_NAME }}
             ACCOUNT_AWS: ${{ vars.ACCOUNT_AWS }}
             REGION_AWS: ${{ vars.REGION_AWS }}
+            VERIFICATION_SUBJECT: ${{ vars.VERIFICATION_SUBJECT }}
+            VERIFICATION_BODY: ${{ vars.VERIFICATION_BODY }}
             COGNITO_DOMAIN: ${{ vars.COGNITO_DOMAIN }}
             GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
             GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
