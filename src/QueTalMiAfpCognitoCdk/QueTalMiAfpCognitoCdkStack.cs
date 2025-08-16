@@ -166,7 +166,7 @@ namespace QueTalMiAfpCognitoCdk
                             }}
                         }},
                         { "global", new Dictionary<string, object> {
-                            { "colorSchemeMode", "light" }
+                            { "colorSchemeMode", "LIGHT" }
                         }}
                     }},
                     { "components", new Dictionary<string, object>{
