@@ -61,7 +61,7 @@ namespace QueTalMiAfpCognitoCdk
                 StandardAttributes = new StandardAttributes {
                     Email = new StandardAttribute {
                         Required = true,
-                        Mutable = true,
+                        Mutable = false,
                     },
                     GivenName = new StandardAttribute {
                         Required = true,
