@@ -93,22 +93,22 @@ namespace QueTalMiAfpCognitoCdk
                 Validation = CertificateValidation.FromDns(),
             });
 
+            /*
             UserPoolDomain domain = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
                 CognitoDomain = new CognitoDomainOptions {
                     DomainPrefix = cognitoDomain
                 },
                 ManagedLoginVersion = ManagedLoginVersion.NEWER_MANAGED_LOGIN
             });
+            */
 
-            /*
-            _ = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
+            UserPoolDomain domain = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
                 CustomDomain = new CustomDomainOptions {
                     DomainName = customDomain,
                     Certificate = certificate,
                 },
                 ManagedLoginVersion = ManagedLoginVersion.NEWER_MANAGED_LOGIN
             });
-            */
 
             UserPoolIdentityProviderGoogle googleProvider = new(this, $"{appName}IdentityProviderGoogle", new UserPoolIdentityProviderGoogleProps {
                 UserPool = userPool,
