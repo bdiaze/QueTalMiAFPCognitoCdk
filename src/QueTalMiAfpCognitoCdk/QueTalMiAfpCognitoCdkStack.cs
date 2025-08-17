@@ -21,8 +21,9 @@ namespace QueTalMiAfpCognitoCdk
             string emailSubject = System.Environment.GetEnvironmentVariable("VERIFICATION_SUBJECT") ?? throw new ArgumentNullException("VERIFICATION_SUBJECT");
             string emailBody = System.Environment.GetEnvironmentVariable("VERIFICATION_BODY") ?? throw new ArgumentNullException("VERIFICATION_BODY");
 
-            string customDomain = System.Environment.GetEnvironmentVariable("CUSTOM_DOMAIN") ?? throw new ArgumentNullException("CUSTOM_DOMAIN");
-            string cognitoDomain = System.Environment.GetEnvironmentVariable("COGNITO_DOMAIN") ?? throw new ArgumentNullException("COGNITO_DOMAIN");
+            string cognitoCustomDomain = System.Environment.GetEnvironmentVariable("COGNITO_CUSTOM_DOMAIN") ?? throw new ArgumentNullException("COGNITO_CUSTOM_DOMAIN");
+            string arnCognitoCertificate = System.Environment.GetEnvironmentVariable("ARN_COGNITO_CERTIFICATE") ?? throw new ArgumentNullException("ARN_COGNITO_CERTIFICATE");
+
 
             // Se obtienen los clients y secrets para los identity providers...
             // string microsoftClientId = System.Environment.GetEnvironmentVariable("MICROSOFT_CLIENT_ID") ?? throw new ArgumentNullException("MICROSOFT_CLIENT_ID");
@@ -86,25 +87,12 @@ namespace QueTalMiAfpCognitoCdk
             });
 
 
-            // Se crea certificado para custom domain...
-            Certificate certificate = new(this, $"{appName}CognitoCertificate", new CertificateProps { 
-                CertificateName = $"{appName}CognitoCertificate",
-                DomainName = customDomain,
-                Validation = CertificateValidation.FromDns(),
-            });
-
-            /*
-            UserPoolDomain domain = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
-                CognitoDomain = new CognitoDomainOptions {
-                    DomainPrefix = cognitoDomain
-                },
-                ManagedLoginVersion = ManagedLoginVersion.NEWER_MANAGED_LOGIN
-            });
-            */
+            // Se busca certificado de cognito creado anteriormente...
+            ICertificate certificate = Certificate.FromCertificateArn(this, $"{appName}CognitoCertificate", arnCognitoCertificate);
 
             UserPoolDomain domain = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
                 CustomDomain = new CustomDomainOptions {
-                    DomainName = customDomain,
+                    DomainName = cognitoCustomDomain,
                     Certificate = certificate,
                 },
                 ManagedLoginVersion = ManagedLoginVersion.NEWER_MANAGED_LOGIN
