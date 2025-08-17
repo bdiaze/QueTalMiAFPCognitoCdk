@@ -1,4 +1,5 @@
 using Amazon.CDK;
+using Amazon.CDK.AWS.CertificateManager;
 using Amazon.CDK.AWS.Cognito;
 using Amazon.CDK.AWS.ECS;
 using Amazon.CDK.AWS.SSM;
@@ -20,7 +21,8 @@ namespace QueTalMiAfpCognitoCdk
             string emailSubject = System.Environment.GetEnvironmentVariable("VERIFICATION_SUBJECT") ?? throw new ArgumentNullException("VERIFICATION_SUBJECT");
             string emailBody = System.Environment.GetEnvironmentVariable("VERIFICATION_BODY") ?? throw new ArgumentNullException("VERIFICATION_BODY");
 
-            string cognitoDomain = System.Environment.GetEnvironmentVariable("COGNITO_DOMAIN") ?? throw new ArgumentNullException("COGNITO_DOMAIN");
+            string customDomain = System.Environment.GetEnvironmentVariable("CUSTOM_DOMAIN") ?? throw new ArgumentNullException("CUSTOM_DOMAIN");
+            // string cognitoDomain = System.Environment.GetEnvironmentVariable("COGNITO_DOMAIN") ?? throw new ArgumentNullException("COGNITO_DOMAIN");
 
             // Se obtienen los clients y secrets para los identity providers...
             // string microsoftClientId = System.Environment.GetEnvironmentVariable("MICROSOFT_CLIENT_ID") ?? throw new ArgumentNullException("MICROSOFT_CLIENT_ID");
@@ -84,9 +86,22 @@ namespace QueTalMiAfpCognitoCdk
                 RemovalPolicy = RemovalPolicy.DESTROY,
             });
 
+
+            // Se crea certificado para custom domain...
+            Certificate certificate = new(this, $"{appName}CognitoCertificate", new CertificateProps { 
+                CertificateName = $"{appName}CognitoCertificate",
+                DomainName = customDomain,
+            });
+
             UserPoolDomain domain = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
+                /*
                 CognitoDomain = new CognitoDomainOptions {
                     DomainPrefix = cognitoDomain
+                },
+                */
+                CustomDomain = new CustomDomainOptions {
+                    DomainName = customDomain,
+                    Certificate = certificate,
                 },
                 ManagedLoginVersion = ManagedLoginVersion.NEWER_MANAGED_LOGIN
             });
