@@ -24,6 +24,8 @@ jobs:
             COGNITO_DOMAIN: ${{ vars.COGNITO_DOMAIN }}
             GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
             GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+            FACEBOOK_CLIENT_ID: ${{ secrets.FACEBOOK_CLIENT_ID }}
+            FACEBOOK_CLIENT_SECRET: ${{ secrets.FACEBOOK_CLIENT_SECRET }}
             CALLBACK_URLS: ${{ vars.CALLBACK_URLS }}
             LOGOUT_URLS: ${{ vars.LOGOUT_URLS }}
         steps:

@@ -29,8 +29,8 @@ namespace QueTalMiAfpCognitoCdk
             string googleClientId = System.Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID") ?? throw new ArgumentNullException("GOOGLE_CLIENT_ID");
             string googleClientSecret = System.Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET") ?? throw new ArgumentNullException("GOOGLE_CLIENT_SECRET");
 
-            // string facebookClientId = System.Environment.GetEnvironmentVariable("FACEBOOK_CLIENT_ID") ?? throw new ArgumentNullException("FACEBOOK_CLIENT_ID");
-            // string facebookClientSecret = System.Environment.GetEnvironmentVariable("FACEBOOK_CLIENT_SECRET") ?? throw new ArgumentNullException("FACEBOOK_CLIENT_SECRET");
+            string facebookClientId = System.Environment.GetEnvironmentVariable("FACEBOOK_CLIENT_ID") ?? throw new ArgumentNullException("FACEBOOK_CLIENT_ID");
+            string facebookClientSecret = System.Environment.GetEnvironmentVariable("FACEBOOK_CLIENT_SECRET") ?? throw new ArgumentNullException("FACEBOOK_CLIENT_SECRET");
 
             string[] callbackUrls = System.Environment.GetEnvironmentVariable("CALLBACK_URLS").Split(",") ?? throw new ArgumentNullException("CALLBACK_URLS");
             string[] logoutUrls = System.Environment.GetEnvironmentVariable("LOGOUT_URLS").Split(",") ?? throw new ArgumentNullException("LOGOUT_URLS");
@@ -103,7 +103,6 @@ namespace QueTalMiAfpCognitoCdk
                 }
             });
 
-            /*
             UserPoolIdentityProviderFacebook facebookProvider = new(this, $"{appName}IdentityProviderFacebook", new UserPoolIdentityProviderFacebookProps { 
                 UserPool = userPool,
                 ClientId = facebookClientId,
@@ -115,7 +114,6 @@ namespace QueTalMiAfpCognitoCdk
                     FamilyName = ProviderAttribute.FACEBOOK_LAST_NAME,
                 }
             });
-            */
 
             /*
             UserPoolIdentityProviderOidc microsoftProvider = new(this, $"{appName}IdentityProviderMicrosoft", new UserPoolIdentityProviderOidcProps { 
@@ -143,7 +141,7 @@ namespace QueTalMiAfpCognitoCdk
                 SupportedIdentityProviders = [
                     UserPoolClientIdentityProvider.COGNITO,
                     UserPoolClientIdentityProvider.GOOGLE,
-                    // UserPoolClientIdentityProvider.FACEBOOK,
+                    UserPoolClientIdentityProvider.FACEBOOK,
                     // UserPoolClientIdentityProvider.OIDC(microsoftProvider.UserPoolClientProviderName)
                 ],
                 OAuth = new OAuthSettings {
