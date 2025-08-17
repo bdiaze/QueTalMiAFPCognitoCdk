@@ -22,7 +22,7 @@ namespace QueTalMiAfpCognitoCdk
             string emailBody = System.Environment.GetEnvironmentVariable("VERIFICATION_BODY") ?? throw new ArgumentNullException("VERIFICATION_BODY");
 
             string customDomain = System.Environment.GetEnvironmentVariable("CUSTOM_DOMAIN") ?? throw new ArgumentNullException("CUSTOM_DOMAIN");
-            // string cognitoDomain = System.Environment.GetEnvironmentVariable("COGNITO_DOMAIN") ?? throw new ArgumentNullException("COGNITO_DOMAIN");
+            string cognitoDomain = System.Environment.GetEnvironmentVariable("COGNITO_DOMAIN") ?? throw new ArgumentNullException("COGNITO_DOMAIN");
 
             // Se obtienen los clients y secrets para los identity providers...
             // string microsoftClientId = System.Environment.GetEnvironmentVariable("MICROSOFT_CLIENT_ID") ?? throw new ArgumentNullException("MICROSOFT_CLIENT_ID");
@@ -83,7 +83,6 @@ namespace QueTalMiAfpCognitoCdk
                     RequireDigits = true,
                     RequireSymbols = false,
                 },
-                RemovalPolicy = RemovalPolicy.DESTROY,
             });
 
 
@@ -95,11 +94,13 @@ namespace QueTalMiAfpCognitoCdk
             });
 
             UserPoolDomain domain = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
-                /*
                 CognitoDomain = new CognitoDomainOptions {
                     DomainPrefix = cognitoDomain
                 },
-                */
+                ManagedLoginVersion = ManagedLoginVersion.NEWER_MANAGED_LOGIN
+            });
+
+            _ = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
                 CustomDomain = new CustomDomainOptions {
                     DomainName = customDomain,
                     Certificate = certificate,
