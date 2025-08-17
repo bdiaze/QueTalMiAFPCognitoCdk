@@ -100,6 +100,7 @@ namespace QueTalMiAfpCognitoCdk
                 ManagedLoginVersion = ManagedLoginVersion.NEWER_MANAGED_LOGIN
             });
 
+            /*
             _ = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
                 CustomDomain = new CustomDomainOptions {
                     DomainName = customDomain,
@@ -107,6 +108,7 @@ namespace QueTalMiAfpCognitoCdk
                 },
                 ManagedLoginVersion = ManagedLoginVersion.NEWER_MANAGED_LOGIN
             });
+            */
 
             UserPoolIdentityProviderGoogle googleProvider = new(this, $"{appName}IdentityProviderGoogle", new UserPoolIdentityProviderGoogleProps {
                 UserPool = userPool,
