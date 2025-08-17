@@ -90,12 +90,13 @@ namespace QueTalMiAfpCognitoCdk
             // Se busca certificado de cognito creado anteriormente...
             ICertificate certificate = Certificate.FromCertificateArn(this, $"{appName}CognitoCertificate", arnCognitoCertificate);
 
-            UserPoolDomain domain = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
+            UserPoolDomain domain = new(this, $"{appName}CognitoDomain", new UserPoolDomainProps {
+                UserPool = userPool,
                 CustomDomain = new CustomDomainOptions {
                     DomainName = cognitoCustomDomain,
                     Certificate = certificate,
                 },
-                ManagedLoginVersion = ManagedLoginVersion.NEWER_MANAGED_LOGIN
+                ManagedLoginVersion = ManagedLoginVersion.NEWER_MANAGED_LOGIN,
             });
 
             UserPoolIdentityProviderGoogle googleProvider = new(this, $"{appName}IdentityProviderGoogle", new UserPoolIdentityProviderGoogleProps {
@@ -159,6 +160,7 @@ namespace QueTalMiAfpCognitoCdk
                 }
             });
             userPoolClient.Node.AddDependency(googleProvider);
+            userPoolClient.Node.AddDependency(facebookProvider);
 
             _ = new CfnManagedLoginBranding(this, $"{appName}ManagedLoginBranding", new CfnManagedLoginBrandingProps {
                 UserPoolId = userPool.UserPoolId,
