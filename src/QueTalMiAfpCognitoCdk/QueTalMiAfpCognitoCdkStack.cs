@@ -91,6 +91,7 @@ namespace QueTalMiAfpCognitoCdk
             Certificate certificate = new(this, $"{appName}CognitoCertificate", new CertificateProps { 
                 CertificateName = $"{appName}CognitoCertificate",
                 DomainName = customDomain,
+                Validation = CertificateValidation.FromDns(),
             });
 
             UserPoolDomain domain = userPool.AddDomain($"{appName}CognitoDomain", new UserPoolDomainOptions {
