@@ -163,8 +163,8 @@ namespace QueTalMiAfpCognitoCdk
             userPoolClient.Node.AddDependency(googleProvider);
             userPoolClient.Node.AddDependency(facebookProvider);
 
-            string base64Favicon = Convert.ToBase64String(File.ReadAllBytes("./Recursos/FAVICON.ico"));
-            string base64FormLogo = Convert.ToBase64String(File.ReadAllBytes("./Recursos/FORM_LOGO.png"));
+            string base64Favicon = Convert.ToBase64String(File.ReadAllBytes("./src/QueTalMiAfpCognitoCdk/Recursos/FAVICON.ico"));
+            string base64FormLogo = Convert.ToBase64String(File.ReadAllBytes("./src/QueTalMiAfpCognitoCdk/Recursos/FORM_LOGO.png"));
 
 
             _ = new CfnManagedLoginBranding(this, $"{appName}ManagedLoginBranding", new CfnManagedLoginBrandingProps {
