@@ -17,4 +17,13 @@
     -->
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Recursos\FAVICON.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Recursos\FORM_LOGO.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
