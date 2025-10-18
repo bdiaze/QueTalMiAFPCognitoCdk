@@ -131,7 +131,7 @@ namespace QueTalMiAfpCognitoCdk
                 UserPool = userPool,
                 ClientId = microsoftClientId,
                 ClientSecret = microsoftClientSecret,
-                IssuerUrl = "https://login.microsoftonline.com/common/v2.0",
+                IssuerUrl = "https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0",
                 Scopes = [ "openid", "email", "profile" ],
                 AttributeMapping = new AttributeMapping() {
                     Email = ProviderAttribute.Other("email"),
