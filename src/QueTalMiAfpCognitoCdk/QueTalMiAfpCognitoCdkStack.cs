@@ -153,7 +153,7 @@ namespace QueTalMiAfpCognitoCdk
                     UserPoolClientIdentityProvider.COGNITO,
                     UserPoolClientIdentityProvider.GOOGLE,
                     UserPoolClientIdentityProvider.FACEBOOK,
-                    UserPoolClientIdentityProvider.Custom(microsoftProvider.ProviderName)
+                    // UserPoolClientIdentityProvider.Custom(microsoftProvider.ProviderName)
                 ],
                 OAuth = new OAuthSettings {
                     CallbackUrls = callbackUrls,
