@@ -27,8 +27,8 @@ namespace QueTalMiAfpCognitoCdk
 
 
             // Se obtienen los clients y secrets para los identity providers...
-            // string microsoftClientId = System.Environment.GetEnvironmentVariable("MICROSOFT_CLIENT_ID") ?? throw new ArgumentNullException("MICROSOFT_CLIENT_ID");
-            // string microsoftClientSecret = System.Environment.GetEnvironmentVariable("MICROSOFT_CLIENT_SECRET") ?? throw new ArgumentNullException("MICROSOFT_CLIENT_SECRET");
+            string microsoftClientId = System.Environment.GetEnvironmentVariable("MICROSOFT_CLIENT_ID") ?? throw new ArgumentNullException("MICROSOFT_CLIENT_ID");
+            string microsoftClientSecret = System.Environment.GetEnvironmentVariable("MICROSOFT_CLIENT_SECRET") ?? throw new ArgumentNullException("MICROSOFT_CLIENT_SECRET");
 
             string googleClientId = System.Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID") ?? throw new ArgumentNullException("GOOGLE_CLIENT_ID");
             string googleClientSecret = System.Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET") ?? throw new ArgumentNullException("GOOGLE_CLIENT_SECRET");
@@ -125,20 +125,21 @@ namespace QueTalMiAfpCognitoCdk
                 }
             });
 
-            /*
+      
             UserPoolIdentityProviderOidc microsoftProvider = new(this, $"{appName}IdentityProviderMicrosoft", new UserPoolIdentityProviderOidcProps { 
+                Name = "Microsoft",
                 UserPool = userPool,
                 ClientId = microsoftClientId,
                 ClientSecret = microsoftClientSecret,
                 IssuerUrl = "https://login.microsoftonline.com/common/v2.0",
                 Scopes = [ "openid", "email", "profile" ],
                 AttributeMapping = new AttributeMapping() {
-                    Email = ProviderAttribute.OIDC_EMAIL,
-                    GivenName = ProviderAttribute.OIDC_GIVEN_NAME,
-                    FamilyName = ProviderAttribute.OIDC_FAMILY_NAME,
+                    Email = ProviderAttribute.Other("email"),
+                    GivenName = ProviderAttribute.Other("given_name"),
+                    FamilyName = ProviderAttribute.Other("family_name"),
                 }
             });
-            */
+
 
             UserPoolClient userPoolClient = new(this, $"{appName}UserPoolClient", new UserPoolClientProps { 
                 UserPoolClientName = $"{appName}UserPoolClient",
@@ -152,7 +153,7 @@ namespace QueTalMiAfpCognitoCdk
                     UserPoolClientIdentityProvider.COGNITO,
                     UserPoolClientIdentityProvider.GOOGLE,
                     UserPoolClientIdentityProvider.FACEBOOK,
-                    // UserPoolClientIdentityProvider.OIDC(microsoftProvider.UserPoolClientProviderName)
+                    UserPoolClientIdentityProvider.Custom(microsoftProvider.ProviderName)
                 ],
                 OAuth = new OAuthSettings {
                     CallbackUrls = callbackUrls,
@@ -163,6 +164,7 @@ namespace QueTalMiAfpCognitoCdk
             });
             userPoolClient.Node.AddDependency(googleProvider);
             userPoolClient.Node.AddDependency(facebookProvider);
+            userPoolClient.Node.AddDependency(microsoftProvider);
 
             string base64Favicon = Convert.ToBase64String(File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Recursos", "FAVICON.ico")));
             string base64FormLogo = Convert.ToBase64String(File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Recursos", "FORM_LOGO.png")));
