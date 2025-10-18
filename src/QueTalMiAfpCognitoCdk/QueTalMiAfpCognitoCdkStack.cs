@@ -85,6 +85,7 @@ namespace QueTalMiAfpCognitoCdk
                     RequireDigits = true,
                     RequireSymbols = false,
                 },
+                DeletionProtection = true,
             });
 
 
