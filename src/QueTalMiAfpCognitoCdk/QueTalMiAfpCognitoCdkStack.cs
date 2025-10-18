@@ -135,8 +135,8 @@ namespace QueTalMiAfpCognitoCdk
                 Scopes = [ "openid", "email", "profile" ],
                 AttributeMapping = new AttributeMapping() {
                     Email = ProviderAttribute.Other("email"),
-                    GivenName = ProviderAttribute.Other("given_name"),
-                    FamilyName = ProviderAttribute.Other("family_name"),
+                    GivenName = ProviderAttribute.Other("givenname"),
+                    FamilyName = ProviderAttribute.Other("surname"),
                 }
             });
 
