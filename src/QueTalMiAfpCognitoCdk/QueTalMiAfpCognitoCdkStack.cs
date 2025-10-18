@@ -150,7 +150,7 @@ namespace QueTalMiAfpCognitoCdk
                 SupportedIdentityProviders = [
                     UserPoolClientIdentityProvider.COGNITO,
                     UserPoolClientIdentityProvider.GOOGLE,
-                    // UserPoolClientIdentityProvider.FACEBOOK,
+                    UserPoolClientIdentityProvider.FACEBOOK,
                     // UserPoolClientIdentityProvider.OIDC(microsoftProvider.UserPoolClientProviderName)
                 ],
                 OAuth = new OAuthSettings {
